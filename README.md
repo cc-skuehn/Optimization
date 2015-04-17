@@ -5,3 +5,6 @@ This repo contains a number of basic optimization routines. New routines are add
 
 ## Link to blog posts:
 https://blog.codecentric.de/en/2015/03/machinery-part1/
+
+### Second blog post to appear on April 21st at 07:07 CET
+https://blog.codecentric.de/en/2015/04/machinery-part2/
