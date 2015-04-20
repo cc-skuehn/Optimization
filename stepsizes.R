@@ -1,4 +1,4 @@
-### Stepsize rules
+### Stepsize rules for Unconstrained Minimization
 
 ### Part 1 - Inexact
 # Armijo rule

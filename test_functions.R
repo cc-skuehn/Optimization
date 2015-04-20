@@ -1,4 +1,4 @@
-# test functions and gradients (hessians in one case)
+# Test functions and gradients (hessians in some cases)
 
 # Function f_1: 0.5 * squared euclidean norm of x = 0.5* (x_1^2+ ... + x_n^2), simple radial function
 f_test = function(x){

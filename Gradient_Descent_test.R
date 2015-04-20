@@ -1,4 +1,5 @@
-# Testscript for Optimization Routines
+# Testscript for Optimization Routines related to codecentric Blog Series
+# Stefan Kühn, April 2015
 # https://github.com/cc-skuehn/Optimization
 
 # Further explanations can be found here:

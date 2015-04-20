@@ -1,4 +1,4 @@
-# Minmal Implementation of Gradient Descent using Armijo with widening - Basics
+# Minimal Implementation of Gradient Descent using Armijo with widening
 
 grad_descent_minimal <- function(start_val=NA, f_name=NULL, grad_f_name=NULL, accuracy=1e-6, max_iterations=1000000){
   

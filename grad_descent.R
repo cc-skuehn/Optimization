@@ -1,4 +1,4 @@
-# Gradient Descent using different stepsizes - Basics
+# Basic implementation of Gradient Descent with various stepsizes
 
 grad_descent <- function(start_val=NA, f_name=NULL, grad_f_name=NULL, step_method="armijo", accuracy=1e-6, max_iterations=1000000,print_details=FALSE){
   
