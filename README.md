@@ -26,6 +26,7 @@ You don't need to touch:
 - stepsizes.R
 - grad_descent.R
 - test_functions.R
+- grad_descent_minimal.R
 
 If you want to experiment with different variants of the Rosenbrock function I recommend changing the parameters a and b directly in the function definition in the test_functions.R file. Please check that a and be are the same in both function and gradient. 
 
@@ -40,3 +41,7 @@ If you want to experience the effects of a fixed stepsize on your own, then try 
 - In case the algorithm reaches max_iterations before converging increase this value (in grad_descent.R)
 
 When you feel ready for the Rosenbrock function f_4 then choose fixed_stepsize = 1e-7 first, in higher dimensions you have to take even smaller values. Don't forget to increase max_interations - and have a good book at hand for the waiting time ;-)
+
+#### grad_descent_minimal.R
+
+This is just to show you how compact Gradient Descent can be implemented. It is not integrated into the other scripts, but it should produce the same results. I have chosen Armijo with widening as stepsize, it is contained into the file as well so basically all you need to do is replacing grad_descent(...) by grad_descent_minimal(...) with an appropriate argument list.
