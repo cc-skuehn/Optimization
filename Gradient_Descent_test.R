@@ -23,15 +23,16 @@ source(paste(getwd(),'/test_functions.R',sep=""))
 details = TRUE # TRUE / FALSE (or T / F)
 
 # Choose test function: 1,2,3,4
-testfun = 4
+testfun = 3
 
 # Choose problem dimension
 n = 7
 
-# Choose stepsize method: armijo, armijo_wide, exact (bisection)
+# Choose stepsize method: armijo, armijo_wide, exact (bisection), fixed (WARNING: small value, can diverge, might take very long in higher dimensions and for Rosenbrock function)
 stepsize = "armijo"
 #stepsize = "armijo_wide"
 #stepsize = "exact"
+#stepsize = "fixed" # If you like change value in grad_descent.R
 
 # Choose initial values
 if (is.element(testfun,c(1,2,3))){
@@ -65,22 +66,22 @@ if (is.element(testfun,c(1,2,3))){
 # Prepare everything else (functions, counters)
 # Function and Gradient definitions: test_functions.R
 if (testfun==1) {
-  print("Trivial, quadratic, radial")
+  print("Testfunction f_1, trivial, quadratic, radial")
   fname = f_test
   grname = grad_test
   hesname = hesse_test
 } else if (testfun==2) {
-  print("Trivial, quadratic, but anisotropic")
+  print("Testfunction f_2, trivial, quadratic, but anisotropic")
   fname = aniso_test
   grname = aniso_grad_test
   hesname = aniso_hesse_test
 } else if (testfun==3) {
-  print("4th Power symmetric")
+  print("Testfunction f_3, symmetric, 4th power")
   fname = sq_test
   grname = sq_grad_test
   hesname = sq_hesse_test
 } else if (testfun==4){
-  print("Rosenbrock - massively anisotropic, 4th power")
+  print("Testfunction f_4, Rosenbrock, massively anisotropic, 4th power")
   fname = rosenbrock_advanced
   grname = grad_rosenbrock_advanced
 }
@@ -104,8 +105,7 @@ count_bi2 <<- 0
 # Gradient Descent
 #######################
 print("Start Gradient Descent")
-print(paste("Stepsize method:", stepsize))
-graddedsc_runtime<-system.time(res <- grad_descent(start_val=initial_values, f_name=fname, grad_f_name = grname, step_method=stepsize,print_details=details))
+graddedsc_runtime<-system.time(res <- grad_descent(start_val=initial_values, f_name=fname, grad_f_name = grname, step_method=stepsize, print_details=details))
   
 # Performance Overview
 if (stepsize == "exact") {
@@ -115,6 +115,9 @@ if (stepsize == "exact") {
   pr_res <- data.frame(graddedsc_runtime[1],count_iter,count_f,count_g,count_wide,row.names=NULL)
   colnames(pr_res) <- c("Runtime:", "Iterations:", "Function:", "Gradient:", "Widening:")
 } else if (stepsize == "armijo"){
+  pr_res <- data.frame(graddedsc_runtime[1],count_iter,count_f,count_g,row.names=NULL)
+  colnames(pr_res) <- c("Runtime:", "Iterations:", "Function:", "Gradient:")
+} else if (stepsize == "fixed") {
   pr_res <- data.frame(graddedsc_runtime[1],count_iter,count_f,count_g,row.names=NULL)
   colnames(pr_res) <- c("Runtime:", "Iterations:", "Function:", "Gradient:")
 } else stop('Stepsize not correct')
