@@ -44,4 +44,4 @@ When you feel ready for the Rosenbrock function f_4 then choose fixed_stepsize =
 
 #### grad_descent_minimal.R
 
-This is just to show you how compact Gradient Descent can be implemented. It is not integrated into the other scripts, but it should produce the same results. I have chosen Armijo with widening as stepsize, it is contained into the file as well so basically all you need to do is replacing grad_descent(...) by grad_descent_minimal(...) with an appropriate argument list.
+This is just to show you how compact Gradient Descent can be implemented. It is not integrated into the other scripts, but it should produce the same results. I have chosen Armijo with widening as stepsize, it is contained in the file as well so basically all you need to do is replacing grad_descent(...) by grad_descent_minimal(...) with an appropriate argument list.
