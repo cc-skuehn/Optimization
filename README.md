@@ -29,4 +29,14 @@ You don't need to touch:
 
 If you want to experiment with different variants of the Rosenbrock function I recommend changing the parameters a and b directly in the function definition in the test_functions.R file. Please check that a and be are the same in both function and gradient. 
 
-For learning/debugging it can be helfup to reduce the maximum number of iterations in grad_descent.R, you can change the number directly in the function definition, the default value is max_iterations=1000000.
+For learning/debugging it can be helpful to reduce the maximum number of iterations in grad_descent.R, you can change it directly in the function definition, the default value is max_iterations=1000000.
+
+#### Advanced: Experiments with fixed stepsize
+
+If you want to experience the effects of a fixed stepsize on your own, then try minimizing f_1,f_2 or f_3 first. Here is what you have to do: 
+- In Gradient_Descent_test.R uncomment the line #stepsize = "fixed"
+- In grad_descent.R check the value of the parameter fixed_stepsize, it should not be larger than 1e-3 in the beginning
+- Run Gradient_Descent_test.R
+- In case the algorithm reaches max_iterations before converging increase this value (in grad_descent.R)
+
+When you feel ready for the Rosenbrock function f_4 then choose fixed_stepsize = 1e-7 first, in higher dimensions you have to take even smaller values. Don't forget to increase max_interations - and have a good book at hand for the waiting time ;-)
