@@ -1,7 +1,7 @@
 # Optimization
 Optimization Routines for codecentric blog articles
 
-This repo contains a number of basic optimization routines. New routines are added as the blog series progresses. We apply these routines to different "toy" or test examples in order to illustrate their performance depending on the specific problem to solve. Finally - as a real-world application - we intend to train a Collaborative Filtering Recommender System, a methodology that will be introduced in the blog series as well.
+This repo contains a number of basic optimization routines. New routines are added as the blog series progresses. We apply these routines to different "toy" or test examples in order to illustrate their performance depending on the specific problem to solve. Finally - as a real-world application - we intend to train a Collaborative Filtering Recommender System, a methodology that will be introduced in the blog series as well. Furthermore, we show the performance for Linear Regression and Logistic Regression (as prototype of a Classification algorithm).
 
 ## Link to blog posts:
 ### First blog post, March 19th, 2015
@@ -9,6 +9,29 @@ https://blog.codecentric.de/en/2015/03/machinery-part1/
 
 ### Second blog post, April 21st, 2015
 https://blog.codecentric.de/en/2015/04/machinery-part2/
+
+### Third blog post, January 14th, 2016, to be published
+https://blog.codecentric.de/en/2016/01/machinery-linear-regression/
+
+### Usage of R-Scripts for Blogpost 3
+
+Important: Put all files in the same directory!
+
+#### Main file:  Linear_Regression_test.R
+Most important settings:
+- number of data points
+- number of parameters of the model
+- stepsize method
+- inital value
+
+Just source the file.
+
+You don't need to touch any other file, but the program depends on
+- stepsizes.R
+- grad_descent.R
+- lin_reg_cost_grad.R
+
+For more information see the comments in the respective files.
 
 ### Usage of R-Scripts for Blogpost 2
 

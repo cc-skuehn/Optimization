@@ -1,4 +1,4 @@
-### Stepsize rules for Unconstrained Minimization
+### Stepsize rules
 
 ### Part 1 - Inexact
 # Armijo rule
@@ -9,8 +9,8 @@
 
 ### Part 2 - Exact
 # Bisection
-### TODO (maybe)
-# Secant
+### For Experts
+# Secant (can fail)
 # Newton-Raphson (requires Hessian)
 
 #########
@@ -96,8 +96,8 @@ bis_method <- function(start_val=NA,direction=NA,grad_f_name=NULL,accuracy=1e-6,
     stop("Directional derivative positive due to numerical errors. Try reducing btol.")
   }
   fx_2 = t(direction) %*% grad_f_name(start_val+x_2*direction)
-  #print(paste(fx_1,fx_2))
   
+  # Find admissible interval
   while (sign(fx_1)==sign(fx_2)) {
     count_bis <- count_bis + 1
     if (count_bis > 50) {
@@ -112,14 +112,15 @@ bis_method <- function(start_val=NA,direction=NA,grad_f_name=NULL,accuracy=1e-6,
   # Update global counter for bisection preparation steps
   count_bi1 <<- count_bi1 + count_bis
   
+  # Prepare Bisection
   x_new = (x_1+x_2)/2
   fx_new = t(direction)%*%grad_f_name(start_val+x_new*direction)
   gfx = fx_new
   
-  # Stopping criterion, the norm of the gradient is bounded by a value in between 1e-12 and accuracy=1e-6 depending on the starting point
-  btol = max(1e-14, accuracy * min(1,sqrt(sum(gfx^2)))) # sqrt(sum(...)^2) is the 2-norm of whatever is inside the (...)
-  # try this first:
-  btol = 1e-14
+  # Stopping criterion, the norm of the gradient is bounded by a value in between 1e-14 and accuracy=1e-6 depending on the starting point
+  #btol = max(1e-14, accuracy * min(1,sqrt(sum(gfx^2)))) # sqrt(sum(...)^2) is the 2-norm of whatever is inside the (...)
+  # try this first, exact line search needs high accuracy
+  btol = 1e-12
   
   ### Bisection method
   while (iter < max_iterations+count_bis) {
@@ -145,3 +146,83 @@ bis_method <- function(start_val=NA,direction=NA,grad_f_name=NULL,accuracy=1e-6,
   return(x_new)
   
 } # end bisection
+
+###################
+### Secant and Newton-Raphson are for experts only
+###################
+
+# Secant method for solving the one-dimensional line search problem (inner iteration)
+# Finds the root of the directional derivative of a multivariate function, but is not guaranteed to work
+# Can be used for univariate functions as well, just set direction to 1
+# WARNING: Method may not converge if initial values are not "near" the root -> in case of divergence return FALSE
+sec_method <- function(start_val=NA,direction=NA,grad_f_name=NULL,accuracy=1e-6,max_iterations=10000){
+  
+  iter = 0
+  # We need two initial values, because we replace the tangent by secant
+  x_1 = 0
+  x_2 = 1
+  fx_1 = t(direction)%*%grad_f_name(start_val+x_1*direction)
+  fx_2 = t(direction)%*%grad_f_name(start_val+x_2*direction)
+  if (fx_1==fx_2) stop("Error in Secant method")
+  sec_12 = (fx_1-fx_2)/(x_1-x_2)
+  x_new = x_2 - fx_2/sec_12
+  fx_new = t(direction)%*%grad_f_name(start_val+x_new*direction)
+  
+  # Stopping criterion, the norm of the gradient is bounded by a value in between 1e-12 and accuracy=1e-6 depending on the starting point
+  stol = max(1e-12, accuracy * min(1,abs(fx_new))) # sqrt(sum(...)^2) is the 2-norm of whatever is inside the (...)
+  # if the algorithm is not converging you can try different values
+  # stol = 1e-6
+  
+  while (iter<max_iterations) {
+    if (abs(fx_new) < stol | abs(x_2-x_new) < accuracy)  return(x_new)
+    else {
+      iter = iter + 1
+      x_1 = x_2
+      x_2 = x_new
+      fx_1 = fx_2
+      fx_2 = fx_new
+      fx_test1 = t(direction)%*%grad_f_name(start_val+x_1*direction)
+      fx_test2 = t(direction)%*%grad_f_name(start_val+x_2*direction)
+      sec_12 = (fx_1-fx_2)/(x_1-x_2)
+      x_new = x_2 - fx_2/sec_12
+      fx_new = t(direction)%*%grad_f_name(start_val+x_new*direction)
+    }
+  }
+  
+  return(x_new)
+  
+} # end secant
+
+# Newton-Raphson method for finding roots of the directional derivative of a multivariate function
+# NEEDS HESSIAN so not applicable to all test functions
+# WARNING: tol is critical, not easy to choose
+nr_method <- function(start_val=NA,direction=NA,grad_f_name=NULL,hesse_f_name=NULL,accuracy=1e-6,max_iterations=10000){
+  
+  iter = 0
+  x_old = 0
+  x_new = 1
+  fx_new = t(direction) %*% grad_f_name(start_val+x_new*direction)
+  gfx_new = sum(t(direction) %*% hesse_f_name(start_val+x_new*direction) %*% direction)
+  
+  # Stopping criterion, the norm of the gradient is bounded by a value in between 1e-12 and accuracy=1e-6 depending on the starting point
+  # tol = max(1e-12, accuracy * min(1,abs(gfx_new))) # sqrt(sum(...)^2) is the 2-norm of whatever is inside the (...)
+  # if the algorithm is not converging you can try
+  tol = accuracy
+  
+  while (iter<max_iterations) {
+    if (abs(fx_new) < tol | abs(x_new-x_old) < accuracy) {
+      return(x_new)
+    }  else {
+      iter = iter + 1
+      x_old = x_new 
+      fx_old = fx_new
+      gfx_old = gfx_new
+      x_new = x_old - (fx_old/gfx_old)
+      fx_new = t(direction) %*% grad_f_name(start_val+x_new*direction)
+      gfx_new = sum(t(direction)%*%hesse_f_name(start_val+x_new*direction)%*%direction)
+    }
+  }
+  
+  return(x_new)
+  
+} # end Newton-Raphson
