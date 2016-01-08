@@ -43,11 +43,10 @@ Most important settings:
 
 Just source the file.
 
-You don't need to touch:
+You don't need to touch any other file, but the program depends on
 - stepsizes.R
 - grad_descent.R
 - test_functions.R
-- grad_descent_minimal.R
 
 If you want to experiment with different variants of the Rosenbrock function I recommend changing the parameters a and b directly in the function definition in the test_functions.R file. Please check that a and be are the same in both function and gradient. 
 
