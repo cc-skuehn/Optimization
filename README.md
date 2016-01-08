@@ -5,7 +5,9 @@ This repo contains a number of basic optimization routines. New routines are add
 
 ## Link to blog posts:
 https://blog.codecentric.de/en/2016/01/machinery-linear-regression/
+
 https://blog.codecentric.de/en/2015/04/machinery-part2/
+
 https://blog.codecentric.de/en/2015/03/machinery-part1/
 
 ### Usage of R-Scripts for Blogpost 3
