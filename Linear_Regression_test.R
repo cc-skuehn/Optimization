@@ -11,9 +11,9 @@
 ########################
 
 # Source related files, it is assumed that all relevant source files are in the current working directory
-#source(paste(getwd(),'/stepsizes.R',sep=""))
-#source(paste(getwd(),'/grad_descent.R',sep=""))
-#source(paste(getwd(),'/lin_reg_cost_grad.R',sep=""))
+source(paste(getwd(),'/stepsizes.R',sep=""))
+source(paste(getwd(),'/grad_descent.R',sep=""))
+source(paste(getwd(),'/lin_reg_cost_grad.R',sep=""))
 
 
 ########################
