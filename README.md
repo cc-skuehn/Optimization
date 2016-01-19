@@ -69,7 +69,7 @@ If you want to experience the effects of a fixed stepsize on your own, then try 
 - Run Gradient_Descent_test.R
 - In case the algorithm reaches max_iterations before converging increase this value (in grad_descent.R)
 
-When you feel ready for the Rosenbrock function f_4 then choose fixed_stepsize = 1e-7 first, in higher dimensions you have to take even smaller values. Don't forget to increase max_interations - and have a good book at hand for the waiting time ;-)
+When you feel ready for the Rosenbrock function f_4 then choose fixed_stepsize = 1e-7 first, in higher dimensions you have to take even smaller values. Don't forget to increase max_iterations - and have a good book at hand for the waiting time ;-)
 
 #### grad_descent_minimal.R
 
