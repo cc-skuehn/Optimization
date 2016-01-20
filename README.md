@@ -13,6 +13,8 @@ https://blog.codecentric.de/en/2015/03/machinery-part1/
 
 ## Links to related blog posts (German) on data-science-blog:
 
+http://www.data-science-blog.com/blog/2016/01/20/wie-lernen-maschinen-3/
+
 http://www.data-science-blog.com/blog/2015/10/30/wie-lernen-maschinen-2/
 
 http://www.data-science-blog.com/blog/2015/10/13/wie-lernen-maschinen/
